@@ -1,0 +1,13 @@
+# Специфічні файли користувача Xcode
+xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Результати збирання та кеші
+build/
+DerivedData/
+*.hmap
+*.ipa
+
+# Системні файли macOS
+.DS_Store
