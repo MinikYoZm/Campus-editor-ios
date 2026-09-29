@@ -1,0 +1,58 @@
+import Foundation
+
+// Enum
+enum LessonType {
+    case lecture
+    case practice
+    case exam
+}
+
+// Protocol
+protocol CampusEvent {
+    var id: UUID { get }
+    var title: String { get set }
+    func printDetails()
+}
+
+// Struct
+struct Lesson: CampusEvent {
+    let id: UUID
+    var title: String
+    var type: LessonType
+    var classroomLink: String? // Optional (бо ссилка є не завжди)
+    
+    init(title: String, type: LessonType, classroomLink: String? = nil) {
+        self.id = UUID()
+        self.title = title
+        self.type = type
+        self.classroomLink = classroomLink
+    }
+    
+    func printDetails() {
+        var info = "📘 \(title) (\(type))"
+        // Безпечне розгортання Optional
+        if let link = classroomLink {
+            info += " -> Лінк: \(link)"
+        } else {
+            info += " -> (Без посилання)"
+        }
+        print(info)
+    }
+}
+
+// Class
+class ScheduleManager {
+    var lessons: [Lesson] = [] // Колекція
+    
+    func addLesson(_ lesson: Lesson) {
+        lessons.append(lesson)
+        print("✅ Додано нову пару: \(lesson.title)")
+    }
+    
+    func showAllLessons() {
+        print("\n--- РОЗКЛАД ---")
+        for lesson in lessons {
+            lesson.printDetails()
+        }
+    }
+}
