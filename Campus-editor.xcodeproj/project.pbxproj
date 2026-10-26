@@ -14,6 +14,7 @@
 		822467D0306C5301006AED49 /* Campus_editorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467CF306C5301006AED49 /* Campus_editorTests.swift */; };
 		822467DA306C5301006AED49 /* Campus_editorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467D9306C5301006AED49 /* Campus_editorUITests.swift */; };
 		822467DC306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */; };
+		828577A7308F4B3900454D15 /* TimeFlowModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828577A6308F4B3900454D15 /* TimeFlowModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		822467D5306C5301006AED49 /* Campus-editorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Campus-editorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		822467D9306C5301006AED49 /* Campus_editorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITests.swift; sourceTree = "<group>"; };
 		822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		828577A6308F4B3900454D15 /* TimeFlowModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFlowModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				822467C1306C5301006AED49 /* Assets.xcassets */,
 				822467C3306C5301006AED49 /* Campus_editor.entitlements */,
 				822467C4306C5301006AED49 /* Preview Content */,
+				828577A6308F4B3900454D15 /* TimeFlowModels.swift */,
 			);
 			path = "Campus-editor";
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				822467C0306C52FF006AED49 /* ContentView.swift in Sources */,
+				828577A7308F4B3900454D15 /* TimeFlowModels.swift in Sources */,
 				822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
