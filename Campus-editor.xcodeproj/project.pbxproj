@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467BD306C52FF006AED49 /* Campus_editorApp.swift */; };
-		822467C0306C52FF006AED49 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467BF306C52FF006AED49 /* ContentView.swift */; };
 		822467C2306C5301006AED49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822467C1306C5301006AED49 /* Assets.xcassets */; };
 		822467C6306C5301006AED49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822467C5306C5301006AED49 /* Preview Assets.xcassets */; };
 		822467D0306C5301006AED49 /* Campus_editorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467CF306C5301006AED49 /* Campus_editorTests.swift */; };
 		822467DA306C5301006AED49 /* Campus_editorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467D9306C5301006AED49 /* Campus_editorUITests.swift */; };
 		822467DC306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */; };
-		828577A7308F4B3900454D15 /* TimeFlowModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828577A6308F4B3900454D15 /* TimeFlowModels.swift */; };
+		823F002630912F7800AF2811 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F002430912F7800AF2811 /* ContentView.swift */; };
+		823F00283091320E00AF2811 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F00273091320E00AF2811 /* Lesson.swift */; };
+		823F002A3091325600AF2811 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F00293091325600AF2811 /* ScheduleManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +38,6 @@
 /* Begin PBXFileReference section */
 		822467BA306C52FF006AED49 /* Campus-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Campus-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		822467BD306C52FF006AED49 /* Campus_editorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorApp.swift; sourceTree = "<group>"; };
-		822467BF306C52FF006AED49 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		822467C1306C5301006AED49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		822467C3306C5301006AED49 /* Campus_editor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Campus_editor.entitlements; sourceTree = "<group>"; };
 		822467C5306C5301006AED49 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,7 +46,9 @@
 		822467D5306C5301006AED49 /* Campus-editorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Campus-editorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		822467D9306C5301006AED49 /* Campus_editorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITests.swift; sourceTree = "<group>"; };
 		822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		828577A6308F4B3900454D15 /* TimeFlowModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFlowModels.swift; sourceTree = "<group>"; };
+		823F002430912F7800AF2811 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		823F00273091320E00AF2811 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		823F00293091325600AF2811 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +99,13 @@
 		822467BC306C52FF006AED49 /* Campus-editor */ = {
 			isa = PBXGroup;
 			children = (
+				823F002330912F7800AF2811 /* Views */,
+				823F002530912F7800AF2811 /* Model */,
+				823F002230912F6000AF2811 /* ViewModels */,
 				822467BD306C52FF006AED49 /* Campus_editorApp.swift */,
-				822467BF306C52FF006AED49 /* ContentView.swift */,
 				822467C1306C5301006AED49 /* Assets.xcassets */,
 				822467C3306C5301006AED49 /* Campus_editor.entitlements */,
 				822467C4306C5301006AED49 /* Preview Content */,
-				828577A6308F4B3900454D15 /* TimeFlowModels.swift */,
 			);
 			path = "Campus-editor";
 			sourceTree = "<group>";
@@ -131,6 +134,32 @@
 			);
 			path = "Campus-editorUITests";
 			sourceTree = "<group>";
+		};
+		823F002230912F6000AF2811 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				823F00293091325600AF2811 /* ScheduleManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		823F002330912F7800AF2811 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				823F002430912F7800AF2811 /* ContentView.swift */,
+			);
+			name = Views;
+			path = "Campus-editor/Views";
+			sourceTree = SOURCE_ROOT;
+		};
+		823F002530912F7800AF2811 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				823F00273091320E00AF2811 /* Lesson.swift */,
+			);
+			name = Model;
+			path = "Campus-editor/Model";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -262,9 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				822467C0306C52FF006AED49 /* ContentView.swift in Sources */,
-				828577A7308F4B3900454D15 /* TimeFlowModels.swift in Sources */,
+				823F002A3091325600AF2811 /* ScheduleManager.swift in Sources */,
+				823F00283091320E00AF2811 /* Lesson.swift in Sources */,
 				822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */,
+				823F002630912F7800AF2811 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

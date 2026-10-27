@@ -93,7 +93,7 @@ func runTimeFlowScenario() {
     let mySchedule = ScheduleManager()
     
     // Створення сутностей (пар)
-    var proLesson = Lesson(title: "PRO", lecturer: "Homal D.R.", weekday: .monday, timeSlot: "08:30", meetingLink: "https://zoom.us/pro", notes: "Підготуватися до тесту")
+    let proLesson = Lesson(title: "PRO", lecturer: "Homal D.R.", weekday: .monday, timeSlot: "08:30", meetingLink: "https://zoom.us/pro", notes: "Підготуватися до тесту")
     let iosLesson = Lesson(title: "IOS", lecturer: "Jenkins P.D.", weekday: .monday, timeSlot: "10:25", meetingLink: nil, notes: nil)
     
     // Додавання до колекції
