@@ -1,10 +1,3 @@
-//
-//  Campus_editorApp.swift
-//  Campus-editor
-//
-//  Created by Кулнаме on 29.09.2026.
-//
-
 import SwiftUI
 
 @main
