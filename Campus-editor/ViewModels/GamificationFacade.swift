@@ -18,11 +18,11 @@ class GamificationFacade: ObservableObject {
     
     // Методи Фасаду, що приховують складність від View
     func addRegularQuest(title: String, time: String, link: String? = nil, notes: String? = nil) {
-        addQuest(title: " " + title, time: time, link: link, notes: notes)
+        addQuest(title: title, time: time, link: link, notes: notes)
     }
 
     func addBossQuest(title: String, time: String, link: String? = nil, notes: String? = nil) {
-        addQuest(title: " БОС: " + title, time: time, link: link, notes: notes)
+        addQuest(title: "БОС: " + title, time: time, link: link, notes: notes)
     }
 
     private func addQuest(title: String, time: String, link: String?, notes: String?) {
@@ -34,6 +34,11 @@ class GamificationFacade: ObservableObject {
             .build()
 
         scheduleManager.addLesson(quest)
+        updateUI()
+    }
+
+    func updateLesson(_ lesson: Lesson) {
+        scheduleManager.updateLesson(lesson)
         updateUI()
     }
 

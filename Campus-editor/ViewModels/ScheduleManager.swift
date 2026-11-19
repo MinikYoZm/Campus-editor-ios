@@ -4,6 +4,7 @@ protocol ScheduleManaging {
     var lessons: [Lesson] { get }
     func addObserver(_ observer: EventObserver)
     func addLesson(_ lesson: Lesson)
+    func updateLesson(_ lesson: Lesson)
     func completeQuestInSchedule(id: UUID)
     func checkTimeAndNotify(simulatedTime: String)
 }
@@ -28,6 +29,13 @@ class ScheduleManager: EventSubject, ScheduleManaging {
         lessons.append(lesson)
     }
     
+    func updateLesson(_ draft: Lesson) {
+        guard let index = lessons.firstIndex(where: { $0.id == draft.id }) else { return }
+        lessons[index].title = draft.title
+        lessons[index].timeSlot = draft.timeSlot
+        lessons[index].notes = draft.notes
+    }
+
     func completeQuestInSchedule(id: UUID) {
         if let index = lessons.firstIndex(where: { $0.id == id }) {
             lessons[index].completeQuest()

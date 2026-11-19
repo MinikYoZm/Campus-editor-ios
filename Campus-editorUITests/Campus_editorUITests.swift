@@ -22,13 +22,55 @@ final class Campus_editorUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    #if os(iOS)
+    func testEditAndCancelFromSchedule() {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let openLesson = app.buttons["open-PRO"]
+        XCTAssertTrue(openLesson.waitForExistence(timeout: 5))
+        capture(app, name: "01 Schedule")
+        openLesson.tap()
+        let edit = app.buttons["Редагувати"]
+        XCTAssertTrue(edit.waitForExistence(timeout: 5))
+        capture(app, name: "02 Details")
+        edit.tap()
+
+        let notes = app.textFields["Нотатка"]
+        XCTAssertTrue(notes.waitForExistence(timeout: 5))
+        capture(app, name: "03 Editor")
+        let title = app.textFields["Назва"]
+        title.tap()
+        // Коротке доповнення перевіряє, що збережена назва оновиться й у списку.
+        title.typeText("1")
+        let newTitle = title.value as? String ?? ""
+        XCTAssertNotEqual(newTitle, "PRO")
+        XCTAssertTrue(newTitle.contains("1"))
+        app.buttons["Зберегти"].tap()
+        XCTAssertTrue(app.staticTexts[newTitle].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+
+        let updated = app.buttons["open-" + newTitle]
+        XCTAssertTrue(updated.waitForExistence(timeout: 5))
+        updated.tap()
+        edit.tap()
+        notes.tap()
+        notes.typeText("draft")
+        app.buttons["Скасувати"].tap()
+        XCTAssertTrue(edit.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["draft"].exists)
+        edit.tap()
+        XCTAssertTrue(notes.waitForExistence(timeout: 5))
+        XCTAssertNotEqual(notes.value as? String, "draft")
     }
+
+    private func capture(_ app: XCUIApplication, name: String) {
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    #endif
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {

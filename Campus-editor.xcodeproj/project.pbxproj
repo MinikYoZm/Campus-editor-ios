@@ -13,6 +13,9 @@
 		822467DA306C5301006AED49 /* Campus_editorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467D9306C5301006AED49 /* Campus_editorUITests.swift */; };
 		822467DC306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */; };
 		823F002630912F7800AF2811 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F002430912F7800AF2811 /* ContentView.swift */; };
+		BE0000000000000000000001 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000000000000000000001 /* ScheduleRouter.swift */; };
+		BE0000000000000000000002 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000000000000000000002 /* LessonDetailView.swift */; };
+		BE0000000000000000000003 /* LessonEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0000000000000000000003 /* LessonEditorView.swift */; };
 		823F00283091320E00AF2811 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F00273091320E00AF2811 /* Lesson.swift */; };
 		823F002A3091325600AF2811 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F00293091325600AF2811 /* ScheduleManager.swift */; };
 		823F002C30913EB700AF2811 /* LessonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823F002B30913EB700AF2811 /* LessonBuilder.swift */; };
@@ -47,6 +50,9 @@
 		822467D9306C5301006AED49 /* Campus_editorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITests.swift; sourceTree = "<group>"; };
 		822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		823F002430912F7800AF2811 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AE0000000000000000000001 /* ScheduleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
+		AE0000000000000000000002 /* LessonDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
+		AE0000000000000000000003 /* LessonEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonEditorView.swift; sourceTree = "<group>"; };
 		823F00273091320E00AF2811 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		823F00293091325600AF2811 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		823F002B30913EB700AF2811 /* LessonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonBuilder.swift; sourceTree = "<group>"; };
@@ -149,6 +155,9 @@
 			isa = PBXGroup;
 			children = (
 				823F002430912F7800AF2811 /* ContentView.swift */,
+				AE0000000000000000000001 /* ScheduleRouter.swift */,
+				AE0000000000000000000002 /* LessonDetailView.swift */,
+				AE0000000000000000000003 /* LessonEditorView.swift */,
 			);
 			name = Views;
 			path = "Campus-editor/Views";
@@ -301,6 +310,9 @@
 				823F003030913EFE00AF2811 /* GamificationFacade.swift in Sources */,
 				822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */,
 				823F002630912F7800AF2811 /* ContentView.swift in Sources */,
+				BE0000000000000000000001 /* ScheduleRouter.swift in Sources */,
+				BE0000000000000000000002 /* LessonDetailView.swift in Sources */,
+				BE0000000000000000000003 /* LessonEditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
