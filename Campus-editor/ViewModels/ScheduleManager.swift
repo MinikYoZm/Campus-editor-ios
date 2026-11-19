@@ -1,7 +1,15 @@
 import Foundation
 
-class ScheduleManager: EventSubject {
-    var lessons: [Lesson] = []
+protocol ScheduleManaging {
+    var lessons: [Lesson] { get }
+    func addObserver(_ observer: EventObserver)
+    func addLesson(_ lesson: Lesson)
+    func completeQuestInSchedule(id: UUID)
+    func checkTimeAndNotify(simulatedTime: String)
+}
+
+class ScheduleManager: EventSubject, ScheduleManaging {
+    private(set) var lessons: [Lesson] = []
     
     // Масив підписників
     private var observers: [EventObserver] = []

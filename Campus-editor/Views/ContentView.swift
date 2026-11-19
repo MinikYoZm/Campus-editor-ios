@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     // Взаємодіємо ТІЛЬКИ з Фасадом
-    @StateObject private var gamificationSystem = GamificationFacade()
+    @ObservedObject var gamificationSystem: GamificationFacade
     
     var body: some View {
         NavigationView {

@@ -18,12 +18,12 @@ class LessonBuilder {
         return self
     }
     
-    func setLink(_ link: String) -> Self {
+    func setLink(_ link: String?) -> Self {
         self.meetingLink = link
         return self
     }
     
-    func setNotes(_ notes: String) -> Self {
+    func setNotes(_ notes: String?) -> Self {
         self.notes = notes
         return self
     }
