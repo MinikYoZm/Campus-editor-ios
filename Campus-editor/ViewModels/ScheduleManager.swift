@@ -17,10 +17,13 @@ class ScheduleManager: EventSubject, ScheduleManaging {
     
     private let defaults: UserDefaults
     private let overridesKey = "lessonCompletionOverrides"
+    private let notesKey = "lessonNoteOverrides"
+    private var savedNotes: [String: String]
     private var overrides: [String: Bool]
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+        savedNotes = defaults.dictionary(forKey: notesKey) as? [String: String] ?? [:]
         overrides = defaults.dictionary(forKey: overridesKey) as? [String: Bool] ?? [:]
     }
 
@@ -36,7 +39,12 @@ class ScheduleManager: EventSubject, ScheduleManaging {
     
     func addLesson(_ lesson: Lesson) {
         var item = lesson
-        if let key = item.occurrenceKey { item.completionOverride = overrides[key] }
+        if let key = item.occurrenceKey {
+            item.completionOverride = overrides[key]
+            if let note = savedNotes[key] {
+                item.notes = note.isEmpty ? nil : note
+            }
+        }
         lessons.append(item)
     }
     
@@ -44,6 +52,11 @@ class ScheduleManager: EventSubject, ScheduleManaging {
         guard let index = lessons.firstIndex(where: { $0.id == draft.id }) else { return }
         lessons[index].title = draft.title
         lessons[index].timeSlot = draft.timeSlot
+        if lessons[index].notes != draft.notes, let key = lessons[index].occurrenceKey {
+            // An empty value remembers that the user cleared the bundled note.
+            savedNotes[key] = draft.notes ?? ""
+            defaults.set(savedNotes, forKey: notesKey)
+        }
         lessons[index].notes = draft.notes
     }
 

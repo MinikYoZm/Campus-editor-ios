@@ -38,6 +38,32 @@ final class Campus_editorTests: XCTestCase {
         XCTAssertTrue(lesson.completed(at: end))
     }
 
+    func testEditedAndClearedNotesSurviveReload() throws {
+        let suite = UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+
+        func reload() throws -> ScheduleManager {
+            let manager = ScheduleManager(defaults: defaults)
+            let lesson = try XCTUnwrap(Timetable.load().first(where: { $0.hasNote }))
+            manager.addLesson(lesson)
+            return manager
+        }
+
+        let first = try reload()
+        var draft = try XCTUnwrap(first.lessons.first)
+        draft.notes = "Оновлена нотатка"
+        first.updateLesson(draft)
+
+        let reopened = try reload()
+        draft = try XCTUnwrap(reopened.lessons.first)
+        XCTAssertEqual(draft.notes, "Оновлена нотатка")
+        draft.notes = nil
+        reopened.updateLesson(draft)
+        let cleared = try reload()
+        XCTAssertNil(try XCTUnwrap(cleared.lessons.first).notes)
+    }
+
     func testPastLessonCanBeUncheckedAcrossReloads() throws {
         let suite = UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
