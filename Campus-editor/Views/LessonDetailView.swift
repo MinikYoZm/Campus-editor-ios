@@ -8,7 +8,8 @@ struct LessonDetailView: View {
         List {
             Section("Заняття") {
                 Text(lesson.title).font(.headline)
-                Text("\(lesson.weekday.rawValue), \(lesson.timeSlot)")
+                Text("\(lesson.weekday.rawValue), \(lesson.timeRange)")
+                Text(lesson.details).foregroundColor(.secondary)
                 Label(lesson.isCompleted ? "Виконано" : "Заплановано",
                       systemImage: lesson.isCompleted ? "checkmark.circle.fill" : "calendar")
             }

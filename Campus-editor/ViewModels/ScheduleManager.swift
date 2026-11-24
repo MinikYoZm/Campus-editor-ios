@@ -6,7 +6,7 @@ protocol ScheduleManaging {
     func addLesson(_ lesson: Lesson)
     func updateLesson(_ lesson: Lesson)
     func completeQuestInSchedule(id: UUID)
-    func checkTimeAndNotify(simulatedTime: String)
+    func checkTimeAndNotify(simulatedTime: String, dateKey: String)
 }
 
 class ScheduleManager: EventSubject, ScheduleManaging {
@@ -42,10 +42,10 @@ class ScheduleManager: EventSubject, ScheduleManaging {
         }
     }
     
-    func checkTimeAndNotify(simulatedTime: String) {
+    func checkTimeAndNotify(simulatedTime: String, dateKey: String) {
         print("\n--- Перевірка часу: \(simulatedTime) ---")
         for lesson in lessons {
-            if lesson.timeSlot == simulatedTime {
+            if lesson.dateKey == dateKey && lesson.timeSlot == simulatedTime {
                 notifyObservers(message: "Квест '\(lesson.title)' розпочався! Посилання: \(lesson.meetingLink ?? "відсутнє")")
             }
         }

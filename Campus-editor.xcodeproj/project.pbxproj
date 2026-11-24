@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467BD306C52FF006AED49 /* Campus_editorApp.swift */; };
+		AA1000000000000000000002 /* Timetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000001 /* Timetable.swift */; };
 		822467C6306C5301006AED49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 822467C5306C5301006AED49 /* Preview Assets.xcassets */; };
+		AA1000000000000000000004 /* Timetable.json in Resources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000003 /* Timetable.json */; };
 		822467D0306C5301006AED49 /* Campus_editorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467CF306C5301006AED49 /* Campus_editorTests.swift */; };
 		822467DA306C5301006AED49 /* Campus_editorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467D9306C5301006AED49 /* Campus_editorUITests.swift */; };
 		822467DC306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822467DB306C5301006AED49 /* Campus_editorUITestsLaunchTests.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		822467BA306C52FF006AED49 /* Campus-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Campus-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		822467BD306C52FF006AED49 /* Campus_editorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorApp.swift; sourceTree = "<group>"; };
+		AA1000000000000000000001 /* Timetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timetable.swift; sourceTree = "<group>"; };
+		AA1000000000000000000003 /* Timetable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Timetable.json; sourceTree = "<group>"; };
 		822467C5306C5301006AED49 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		822467CB306C5301006AED49 /* Campus-editorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Campus-editorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		822467CF306C5301006AED49 /* Campus_editorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campus_editorTests.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				823F002230912F6000AF2811 /* ViewModels */,
 				823F002330912F7800AF2811 /* Views */,
 				822467BD306C52FF006AED49 /* Campus_editorApp.swift */,
+				AA1000000000000000000001 /* Timetable.swift */,
+				AA1000000000000000000003 /* Timetable.json */,
 				822467C4306C5301006AED49 /* Preview Content */,
 			);
 			path = "Campus-editor";
@@ -279,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				822467C6306C5301006AED49 /* Preview Assets.xcassets in Resources */,
+				AA1000000000000000000004 /* Timetable.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +316,7 @@
 				823F00283091320E00AF2811 /* Lesson.swift in Sources */,
 				823F003030913EFE00AF2811 /* GamificationFacade.swift in Sources */,
 				822467BE306C52FF006AED49 /* Campus_editorApp.swift in Sources */,
+				AA1000000000000000000002 /* Timetable.swift in Sources */,
 				823F002630912F7800AF2811 /* ContentView.swift in Sources */,
 				BE0000000000000000000001 /* ScheduleRouter.swift in Sources */,
 				BE0000000000000000000002 /* LessonDetailView.swift in Sources */,
@@ -461,7 +469,6 @@
 		822467E0306C5301006AED49 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;

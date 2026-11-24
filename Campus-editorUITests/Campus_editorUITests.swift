@@ -25,9 +25,11 @@ final class Campus_editorUITests: XCTestCase {
     #if os(iOS)
     func testEditAndCancelFromSchedule() {
         let app = XCUIApplication()
+        app.launchEnvironment["TIMEFLOW_TEST_DATE"] = "2026-11-24"
         app.launch()
 
-        let openLesson = app.buttons["open-PRO"]
+        let originalTitle = "Паралельні та розподілені обчислення"
+        let openLesson = app.buttons["open-" + originalTitle]
         XCTAssertTrue(openLesson.waitForExistence(timeout: 5))
         capture(app, name: "01 Schedule")
         openLesson.tap()
@@ -44,7 +46,7 @@ final class Campus_editorUITests: XCTestCase {
         // Коротке доповнення перевіряє, що збережена назва оновиться й у списку.
         title.typeText("1")
         let newTitle = title.value as? String ?? ""
-        XCTAssertNotEqual(newTitle, "PRO")
+        XCTAssertNotEqual(newTitle, originalTitle)
         XCTAssertTrue(newTitle.contains("1"))
         app.buttons["Зберегти"].tap()
         XCTAssertTrue(app.staticTexts[newTitle].waitForExistence(timeout: 5))

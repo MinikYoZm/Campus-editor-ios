@@ -7,34 +7,17 @@ class GamificationFacade: ObservableObject {
     
     private let scheduleManager: ScheduleManaging
 
-    init(scheduleManager: ScheduleManaging, observer: EventObserver) {
+    init(scheduleManager: ScheduleManaging, observer: EventObserver, lessons: [Lesson] = Timetable.load()) {
         self.scheduleManager = scheduleManager
         scheduleManager.addObserver(observer)
 
-        addRegularQuest(title: "PRO", time: "08:30", link: "https://zoom.us/pro")
-        addRegularQuest(title: "IOS", time: "10:25", link: "https://meet/ios")
-        addBossQuest(title: "Test AK", time: "12:15", notes: "Взяти конспект")
-    }
-    
-    // Методи Фасаду, що приховують складність від View
-    func addRegularQuest(title: String, time: String, link: String? = nil, notes: String? = nil) {
-        addQuest(title: title, time: time, link: link, notes: notes)
-    }
-
-    func addBossQuest(title: String, time: String, link: String? = nil, notes: String? = nil) {
-        addQuest(title: "БОС: " + title, time: time, link: link, notes: notes)
-    }
-
-    private func addQuest(title: String, time: String, link: String?, notes: String?) {
-        let quest = LessonBuilder()
-            .setTitle(title)
-            .setTime(day: .monday, time: time)
-            .setLink(link)
-            .setNotes(notes)
-            .build()
-
-        scheduleManager.addLesson(quest)
+        lessons.forEach(scheduleManager.addLesson)
         updateUI()
+    }
+
+    func lessons(on date: Date) -> [Lesson] {
+        let key = Timetable.dateFormat.string(from: date)
+        return displayLessons.filter { $0.dateKey == key }.sorted { $0.timeSlot < $1.timeSlot }
     }
 
     func updateLesson(_ lesson: Lesson) {
@@ -47,8 +30,8 @@ class GamificationFacade: ObservableObject {
         updateUI()
     }
     
-    func simulateTimeCheck(time: String) {
-        scheduleManager.checkTimeAndNotify(simulatedTime: time)
+    func simulateTimeCheck(time: String, on date: Date) {
+        scheduleManager.checkTimeAndNotify(simulatedTime: time, dateKey: Timetable.dateFormat.string(from: date))
     }
     
     private func updateUI() {

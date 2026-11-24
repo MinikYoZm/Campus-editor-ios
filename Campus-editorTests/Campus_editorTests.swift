@@ -10,16 +10,20 @@ private final class RecordingObserver: EventObserver {
 }
 
 final class Campus_editorTests: XCTestCase {
-    func testTimeCheckNotifiesObserverOnlyAtLessonTime() {
+    func testTimeCheckNotifiesObserverOnlyAtLessonTime() throws {
         let observer = RecordingObserver()
         let facade = GamificationFacade(scheduleManager: ScheduleManager(), observer: observer)
 
-        facade.simulateTimeCheck(time: "08:20")
+        let date = try XCTUnwrap(Timetable.dateFormat.date(from: "2026-11-24"))
+        let lessons = facade.lessons(on: date)
+        XCTAssertEqual(lessons.map(\.timeSlot), ["12:20", "14:15"])
+
+        facade.simulateTimeCheck(time: "08:20", on: date)
         XCTAssertTrue(observer.messages.isEmpty)
 
-        facade.simulateTimeCheck(time: "08:30")
+        facade.simulateTimeCheck(time: "12:20", on: date)
         XCTAssertEqual(observer.messages.count, 1)
-        XCTAssertTrue(observer.messages.first?.contains("PRO") == true)
+        XCTAssertTrue(observer.messages.first?.contains("Паралельні та розподілені обчислення") == true)
     }
 
     func testCompletingQuestUpdatesDisplayedLesson() throws {
