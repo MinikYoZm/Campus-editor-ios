@@ -19,18 +19,44 @@ struct Lesson: Identifiable {
     var notes: String?
     var isCompleted: Bool = false
     
+    var occurrenceKey: String?
+    var completionOverride: Bool?
     var dateKey: String = ""
     var duration: Int = 0
     var details: String = ""
 
-    var timeRange: String {
-        let parts = timeSlot.split(separator: ":").compactMap { Int($0) }
-        guard duration > 0, parts.count == 2 else { return timeSlot }
-        let end = (parts[0] * 60 + parts[1] + duration) % 1440
-        return String(format: "%@ – %02d:%02d", timeSlot, end / 60, end % 60)
+    var hasNote: Bool {
+        !(notes ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    mutating func completeQuest() {
-        self.isCompleted = true
+    var startMinutes: Int? {
+        let parts = timeSlot.split(separator: ":")
+        guard parts.count == 2, let hour = Int(parts[0]), let minute = Int(parts[1]),
+              (0..<24).contains(hour), (0..<60).contains(minute) else { return nil }
+        return hour * 60 + minute
+    }
+
+    static func clockTime(_ minutes: Int) -> String {
+        let normalized = (minutes % 1440 + 1440) % 1440
+        return String(format: "%02d:%02d", normalized / 60, normalized % 60)
+    }
+
+    var reminderTime: String? { startMinutes.map { Self.clockTime($0 - 10) } }
+
+    var timeRange: String {
+        guard let start = startMinutes, duration > 0 else { return timeSlot }
+        return "\(timeSlot) – \(Self.clockTime(start + duration))"
+    }
+
+    var endDate: Date? {
+        guard let date = Timetable.dateFormat.date(from: dateKey), let start = startMinutes,
+              duration > 0, let begins = Timetable.calendar.date(
+                bySettingHour: start / 60, minute: start % 60, second: 0, of: date
+              ) else { return nil }
+        return begins.addingTimeInterval(TimeInterval(duration * 60))
+    }
+
+    func completed(at now: Date) -> Bool {
+        completionOverride ?? (endDate.map { $0 <= now } ?? false)
     }
 }

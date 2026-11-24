@@ -13,10 +13,10 @@ struct LessonDetailView: View {
                 Label(lesson.isCompleted ? "Виконано" : "Заплановано",
                       systemImage: lesson.isCompleted ? "checkmark.circle.fill" : "calendar")
             }
-            if let link = lesson.meetingLink, !link.isEmpty {
-                Section("Посилання") { Text(link).textSelection(.enabled) }
+            if let link = lesson.meetingLink, let url = URL(string: link) {
+                Section("Посилання") { Link(link, destination: url) }
             }
-            if let notes = lesson.notes, !notes.isEmpty {
+            if lesson.hasNote, let notes = lesson.notes {
                 Section("Нотатки") { Text(notes) }
             }
         }

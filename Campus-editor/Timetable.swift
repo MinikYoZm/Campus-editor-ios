@@ -26,6 +26,8 @@ enum Timetable {
         let start: String
         let duration: Int
         let title: String
+        let room: String
+        let note: String?
         let details: String
     }
 
@@ -41,7 +43,10 @@ enum Timetable {
                 var lesson = LessonBuilder()
                     .setTitle(entry.title)
                     .setTime(day: weekday, time: entry.start)
+                    .setLink("https://example.com/meet/\(entry.room)")
+                    .setNotes(entry.note)
                     .build()
+                lesson.occurrenceKey = "\(entry.date)|\(entry.start)|\(entry.room)|\(entry.details)"
                 lesson.dateKey = entry.date
                 lesson.duration = entry.duration
                 lesson.details = entry.details

@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 struct ContentView: View {
@@ -11,10 +12,21 @@ struct ContentView: View {
         #endif
         return Date()
     }()
+    @Environment(\.scenePhase) private var scenePhase
+    private let clock = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
     @State private var testMessage = ""
     @State private var showingTestResult = false
 
     var body: some View {
+        navigation
+            .onReceive(clock) { _ in gamificationSystem.refreshElapsedLessons() }
+            .onChange(of: scenePhase) { phase in
+                if phase == .active { gamificationSystem.refreshElapsedLessons() }
+            }
+    }
+
+    @ViewBuilder
+    private var navigation: some View {
         if #available(macOS 13, iOS 16, *) {
             NavigationStack(path: $router.path) {
                 schedule
@@ -41,7 +53,7 @@ struct ContentView: View {
         }
         .navigationTitle("TimeFlow")
         .toolbar {
-            ToolbarItem { timeMenu(for: lessons) }
+            ToolbarItem { timeMenu }
         }
         .alert("Перевірка часу", isPresented: $showingTestResult) {
             Button("Гаразд") { }
@@ -56,7 +68,14 @@ struct ContentView: View {
                 Text("На цей день занять немає").foregroundColor(.secondary)
             }
             ForEach(lessons) { lesson in
-                lessonRow(lesson)
+                VStack(alignment: .leading, spacing: 4) {
+                    lessonRow(lesson)
+                    if let link = lesson.meetingLink, let url = URL(string: link) {
+                        Link(link, destination: url)
+                            .font(.caption)
+                            .buttonStyle(.borderless)
+                    }
+                }
             }
         }
     }
@@ -67,7 +86,13 @@ struct ContentView: View {
                 router.showDetails(for: lesson.id)
             } label: {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(lesson.title).font(.headline)
+                    HStack {
+                        Text(lesson.title).font(.headline)
+                        if lesson.hasNote {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundColor(.yellow)
+                        }
+                    }
                     Text(lesson.timeRange).monospacedDigit()
                     Text(lesson.details)
                         .font(.subheadline)
@@ -77,12 +102,12 @@ struct ContentView: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(lesson.title)
+            .accessibilityLabel(lesson.hasNote ? lesson.title + ", є нотатка" : lesson.title)
             .accessibilityIdentifier("open-\(lesson.title)")
 
             Button {
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.55)) {
-                    gamificationSystem.completeQuest(id: lesson.id)
+                    gamificationSystem.toggleCompletion(id: lesson.id)
                 }
             } label: {
                 ZStack {
@@ -98,24 +123,21 @@ struct ContentView: View {
                 .frame(width: 44, height: 44)
             }
             .buttonStyle(.borderless)
-            .accessibilityLabel(lesson.isCompleted ? "Виконано" : "Позначити виконаним")
+            .accessibilityLabel(lesson.isCompleted ? "Зняти галочку" : "Позначити виконаним")
         }
     }
 
-    private func timeMenu(for lessons: [Lesson]) -> some View {
-        let defaultTimes = ["08:20", "08:30", "10:15", "10:25", "11:55", "12:15"]
-        let times: [String] = Set(defaultTimes + lessons.map(\.timeSlot)).sorted()
-        return Menu("Тест") {
-            ForEach(times, id: \.self) { time in
-                Button(time) { checkTime(time, lessons: lessons) }
+    private var timeMenu: some View {
+        Menu("Тест") {
+            ForEach(gamificationSystem.testTimes, id: \.self) { time in
+                Button(time) { checkTime(time) }
             }
         }
     }
 
-    private func checkTime(_ time: String, lessons: [Lesson]) {
-        gamificationSystem.simulateTimeCheck(time: time, on: selectedDate)
-        let titles = lessons.filter { $0.timeSlot == time }.map(\.title)
-        let result = titles.isEmpty ? "Пари не починаються" : titles.joined(separator: ", ")
+    private func checkTime(_ time: String) {
+        let messages = gamificationSystem.simulateTimeCheck(time: time, on: selectedDate)
+        let result = messages.isEmpty ? "Немає занять або нагадувань" : messages.joined(separator: "\n")
         testMessage = "\(time) · \(result)"
         showingTestResult = true
     }

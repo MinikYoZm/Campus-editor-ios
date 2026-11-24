@@ -5,8 +5,8 @@ protocol ScheduleManaging {
     func addObserver(_ observer: EventObserver)
     func addLesson(_ lesson: Lesson)
     func updateLesson(_ lesson: Lesson)
-    func completeQuestInSchedule(id: UUID)
-    func checkTimeAndNotify(simulatedTime: String, dateKey: String)
+    func toggleCompletion(id: UUID)
+    func checkTimeAndNotify(simulatedTime: String, dateKey: String) -> [String]
 }
 
 class ScheduleManager: EventSubject, ScheduleManaging {
@@ -15,6 +15,15 @@ class ScheduleManager: EventSubject, ScheduleManaging {
     // Масив підписників
     private var observers: [EventObserver] = []
     
+    private let defaults: UserDefaults
+    private let overridesKey = "lessonCompletionOverrides"
+    private var overrides: [String: Bool]
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        overrides = defaults.dictionary(forKey: overridesKey) as? [String: Bool] ?? [:]
+    }
+
     func addObserver(_ observer: EventObserver) {
         observers.append(observer)
     }
@@ -26,7 +35,9 @@ class ScheduleManager: EventSubject, ScheduleManaging {
     }
     
     func addLesson(_ lesson: Lesson) {
-        lessons.append(lesson)
+        var item = lesson
+        if let key = item.occurrenceKey { item.completionOverride = overrides[key] }
+        lessons.append(item)
     }
     
     func updateLesson(_ draft: Lesson) {
@@ -36,18 +47,30 @@ class ScheduleManager: EventSubject, ScheduleManaging {
         lessons[index].notes = draft.notes
     }
 
-    func completeQuestInSchedule(id: UUID) {
-        if let index = lessons.firstIndex(where: { $0.id == id }) {
-            lessons[index].completeQuest()
+    func toggleCompletion(id: UUID) {
+        guard let index = lessons.firstIndex(where: { $0.id == id }) else { return }
+        let value = !lessons[index].completed(at: Date())
+        lessons[index].completionOverride = value
+        if let key = lessons[index].occurrenceKey {
+            overrides[key] = value
+            defaults.set(overrides, forKey: overridesKey)
         }
     }
     
-    func checkTimeAndNotify(simulatedTime: String, dateKey: String) {
-        print("\n--- Перевірка часу: \(simulatedTime) ---")
-        for lesson in lessons {
-            if lesson.dateKey == dateKey && lesson.timeSlot == simulatedTime {
-                notifyObservers(message: "Квест '\(lesson.title)' розпочався! Посилання: \(lesson.meetingLink ?? "відсутнє")")
+    func checkTimeAndNotify(simulatedTime: String, dateKey: String) -> [String] {
+        var messages: [String] = []
+        for lesson in lessons where lesson.dateKey == dateKey {
+            let message: String
+            if lesson.timeSlot == simulatedTime {
+                message = "Починається пара: \(lesson.title)"
+            } else if lesson.reminderTime == simulatedTime {
+                message = "Через 10 хвилин: \(lesson.title)"
+            } else {
+                continue
             }
+            messages.append(message)
+            notifyObservers(message: message + (lesson.meetingLink.map { " · \($0)" } ?? ""))
         }
+        return messages
     }
 }
